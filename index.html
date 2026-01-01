@@ -6,154 +6,202 @@
   <title>Reservation Confirmation</title>
   <style>
     :root{
-      --text: #ffffff;
-      --muted: rgba(255,255,255,.78);
-      --soft: rgba(255,255,255,.60);
-      --shadow: rgba(0,0,0,.55);
-      --card: rgba(12,16,24,.62);
-      --card2: rgba(12,16,24,.42);
-      --border: rgba(255,255,255,.14);
-      --accent: rgba(255,255,255,.92);
-      --radius: 18px;
+      --text:#ffffff;
+      --muted:rgba(255,255,255,.78);
+      --soft:rgba(255,255,255,.60);
+      --shadow:rgba(0,0,0,.55);
+      --card:rgba(12,16,24,.62);
+      --card2:rgba(12,16,24,.42);
+      --border:rgba(255,255,255,.14);
+      --radius:18px;
     }
-
-    *{ box-sizing: border-box; }
-
+    *{ box-sizing:border-box; }
     body{
       margin:0;
-      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-      color: var(--text);
-      min-height: 100vh;
-
-      /* Background image: your screenshot */
+      font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+      color:var(--text);
+      min-height:100vh;
       background-image:
         linear-gradient(180deg, rgba(0,0,0,.50), rgba(0,0,0,.55)),
-        url("reservations.png");
-      background-size: cover;
-      background-position: center;
-      background-repeat: no-repeat;
-      background-attachment: fixed;
+        url("reservations.jpg"); /* <-- change to reservations.png if that's your real file */
+      background-size:cover;
+      background-position:center;
+      background-repeat:no-repeat;
+      background-attachment:fixed;
     }
-
-    .wrap{
-      max-width: 980px;
-      margin: 0 auto;
-      padding: 18px;
-    }
-
+    .wrap{ max-width:980px; margin:0 auto; padding:18px; }
     .topbar{
-      display:flex;
-      align-items:center;
-      gap: 12px;
-      padding: 14px 14px;
-      border: 1px solid var(--border);
-      background: rgba(10,14,22,.55);
-      backdrop-filter: blur(8px);
-      border-radius: var(--radius);
-      box-shadow: 0 24px 60px var(--shadow);
+      display:flex; align-items:center; gap:12px;
+      padding:14px;
+      border:1px solid var(--border);
+      background:rgba(10,14,22,.55);
+      backdrop-filter:blur(8px);
+      border-radius:var(--radius);
+      box-shadow:0 24px 60px var(--shadow);
     }
-
     .logo{
-      width: 44px;
-      height: 44px;
-      border-radius: 12px;
-      border: 1px dashed rgba(255,255,255,.35);
-      display:grid;
-      place-items:center;
-      color: rgba(255,255,255,.75);
-      font-size: 11px;
-      letter-spacing: .3px;
-      text-align:center;
-      line-height:1.1;
-      flex: 0 0 auto;
-      overflow:hidden;
-      background: rgba(255,255,255,.06);
+      width:44px; height:44px; border-radius:12px;
+      border:1px solid rgba(255,255,255,.18);
+      display:grid; place-items:center;
+      overflow:hidden; background:rgba(255,255,255,.06);
+      flex:0 0 auto;
     }
-    /* If you add a file named chase-logo.png, uncomment the img in HTML and this will fit it nicely */
-    .logo img{
-      width: 100%;
-      height: 100%;
-      object-fit: contain;
-      display:block;
-      padding: 6px;
+    .logo img{ width:100%; height:100%; object-fit:contain; display:block; padding:6px; }
+    .logoFallback{
+      color:rgba(255,255,255,.75);
+      font-size:11px; letter-spacing:.3px; text-align:center; line-height:1.1;
+      border:1px dashed rgba(255,255,255,.35);
+      width:100%; height:100%; display:grid; place-items:center;
+      border-radius:12px;
     }
+    .toptext{ display:flex; flex-direction:column; gap:2px; min-width:0; }
+    .toptext .title{ font-size:14px; font-weight:650; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+    .toptext .subtitle{ font-size:12px; color:var(--soft); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
 
-    .toptext{
-      display:flex;
-      flex-direction:column;
-      gap:2px;
-      min-width: 0;
-    }
-    .toptext .title{
-      font-size: 14px;
-      font-weight: 650;
-      letter-spacing: .2px;
-      white-space: nowrap;
-      overflow:hidden;
-      text-overflow: ellipsis;
-    }
-    .toptext .subtitle{
-      font-size: 12px;
-      color: var(--soft);
-      white-space: nowrap;
-      overflow:hidden;
-      text-overflow: ellipsis;
-    }
+    .grid{ margin-top:14px; display:grid; grid-template-columns:1fr; gap:14px; }
+    @media (min-width:860px){ .grid{ grid-template-columns:1.15fr .85fr; align-items:start; } }
 
-    .grid{
-      margin-top: 14px;
-      display:grid;
-      grid-template-columns: 1fr;
-      gap: 14px;
-    }
-    @media (min-width: 860px){
-      .grid{
-        grid-template-columns: 1.15fr .85fr;
-        align-items:start;
-      }
-    }
-
-    .card{
-      border: 1px solid var(--border);
-      background: var(--card);
-      backdrop-filter: blur(10px);
-      border-radius: var(--radius);
-      box-shadow: 0 24px 60px var(--shadow);
+    .card, .sideCard{
+      border:1px solid var(--border);
+      backdrop-filter:blur(10px);
+      border-radius:var(--radius);
+      box-shadow:0 24px 60px var(--shadow);
       overflow:hidden;
     }
+    .card{ background:var(--card); }
+    .sideCard{ background:var(--card2); }
 
     .cardHeader{
-      padding: 16px 16px 12px;
-      border-bottom: 1px solid rgba(255,255,255,.10);
-      background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,0));
+      padding:16px 16px 12px;
+      border-bottom:1px solid rgba(255,255,255,.10);
+      background:linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,0));
     }
+    .h1{ margin:0; font-size:18px; font-weight:750; letter-spacing:.2px; }
+    .h2{ margin:6px 0 0; font-size:13px; color:var(--muted); line-height:1.35; }
 
-    .h1{
-      margin:0;
-      font-size: 18px;
-      font-weight: 750;
-      letter-spacing: .2px;
-    }
-    .h2{
-      margin: 6px 0 0;
-      font-size: 13px;
-      color: var(--muted);
-      line-height: 1.35;
-    }
-
-    .section{
-      padding: 14px 16px 16px;
-    }
-
+    .section{ padding:14px 16px 16px; }
     .kv{
-      display:grid;
-      grid-template-columns: 150px 1fr;
-      gap: 10px 12px;
-      padding: 10px 0;
-      border-bottom: 1px solid rgba(255,255,255,.08);
-      font-size: 13px;
+      display:grid; grid-template-columns:150px 1fr;
+      gap:10px 12px; padding:10px 0;
+      border-bottom:1px solid rgba(255,255,255,.08);
+      font-size:13px;
     }
-    .kv:last-child{ border-bottom: 0; padding-bottom: 0; }
+    .kv:last-child{ border-bottom:0; padding-bottom:0; }
+    .k{ color:rgba(255,255,255,.62); }
+    .v{ color:rgba(255,255,255,.95); word-break:break-word; }
+    .big{ font-size:14px; font-weight:650; letter-spacing:.1px; }
 
-    .k{ color: rgba(255,255,255,.62); }
-    .v{ color: rgba(255,255,255,.95); word-break
+    .pillRow{ display:flex; flex-wrap:wrap; gap:8px; margin-top:12px; }
+    .pill{
+      padding:7px 10px; border-radius:999px;
+      border:1px solid rgba(255,255,255,.14);
+      background:rgba(255,255,255,.06);
+      color:rgba(255,255,255,.82);
+      font-size:12px;
+    }
+
+    .sideInner{ padding:14px 16px 16px; }
+    .label{ font-size:12px; color:rgba(255,255,255,.60); margin-bottom:6px; }
+    .value{ font-size:16px; font-weight:750; margin-bottom:10px; }
+    .fine{ font-size:12px; color:rgba(255,255,255,.64); line-height:1.35; }
+    .mono{ font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace; letter-spacing:.15px; }
+
+    .footer{
+      margin-top:14px;
+      padding:10px 2px 2px;
+      font-size:11px;
+      color:rgba(255,255,255,.55);
+      text-shadow:0 2px 10px rgba(0,0,0,.55);
+    }
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+
+    <div class="topbar">
+      <div class="logo" aria-label="Logo">
+        <!-- If chase-logo.png exists, this will show it -->
+        <img src="chase-logo.png" alt="Chase logo" onerror="this.remove(); document.getElementById('logoFallback').style.display='grid';" />
+        <div id="logoFallback" class="logoFallback" style="display:none;">LOGO<br>HERE</div>
+      </div>
+
+      <div class="toptext">
+        <div class="title">Reservation Confirmation</div>
+        <div class="subtitle">Chase Travel — Rebrand prototype (class project)</div>
+      </div>
+    </div>
+
+    <div class="grid">
+
+      <div class="card">
+        <div class="cardHeader">
+          <h1 class="h1">New York Marriott Marquis</h1>
+          <p class="h2">King Room</p>
+        </div>
+
+        <div class="section">
+          <div class="kv">
+            <div class="k">Trip dates</div>
+            <div class="v big">Mon, Dec 29, 2025 – Thu, Jan 01, 2026</div>
+          </div>
+
+          <div class="kv">
+            <div class="k">Guests / nights</div>
+            <div class="v">2 guests, 3 nights</div>
+          </div>
+
+          <div class="kv">
+            <div class="k">Total</div>
+            <div class="v big">$905.59</div>
+          </div>
+
+          <div class="kv">
+            <div class="k">Hotel confirmation</div>
+            <div class="v mono">2356815007</div>
+          </div>
+
+          <div class="kv">
+            <div class="k">Address</div>
+            <div class="v">1535 Broadway, New York, NY 10036 US</div>
+          </div>
+
+          <div class="pillRow">
+            <div class="pill">Free cancellation until Sat, Dec 27, 2025 · 03:00 PM (property local time)</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="sideCard">
+        <div class="cardHeader">
+          <h1 class="h1">Stay details</h1>
+          <p class="h2">Check-in / check-out</p>
+        </div>
+
+        <div class="sideInner">
+          <div class="label">Check-in</div>
+          <div class="value">Mon, Dec 29, 2025</div>
+          <div class="fine mono">03:00 PM</div>
+
+          <div style="height:14px"></div>
+
+          <div class="label">Check-out</div>
+          <div class="value">Thu, Jan 01, 2026</div>
+          <div class="fine mono">12:00 PM</div>
+
+          <div style="height:14px"></div>
+
+          <div class="label">Notes</div>
+          <div class="fine">Prototype UI overlay. Background uses provided reservation screenshot.</div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="footer">
+      If the background doesn’t load: make sure the filename matches the URL in CSS (reservations.jpg vs .png).
+    </div>
+
+  </div>
+</body>
+</html>
